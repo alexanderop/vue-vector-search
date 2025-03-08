@@ -1,4 +1,5 @@
 import { pipeline } from "@huggingface/transformers";
+import { cosineSimilarity, normalizeVector } from "../utils/vectorUtils";
 
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 class PipelineSingleton {
@@ -44,25 +45,6 @@ class PipelineSingleton {
     }
     return this.instance;
   }
-}
-
-// Helper function for cosine similarity
-function cosineSimilarity(vec1, vec2) {
-  if (vec1.length !== vec2.length) {
-    throw new Error("Vector dimensions don't match");
-  }
-  
-  let dotProduct = 0;
-  for (let i = 0; i < vec1.length; i++) {
-    dotProduct += vec1[i] * vec2[i];
-  }
-  return dotProduct;
-}
-
-// Normalize a vector to unit length
-function normalizeVector(vector) {
-  const norm = Math.sqrt(vector.reduce((sum, val) => sum + val * val, 0));
-  return vector.map(val => val / norm);
 }
 
 // Listen for messages from the main thread
