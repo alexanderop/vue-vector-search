@@ -23,6 +23,46 @@
     /* Additional derived colors */
     --color-accent-hover: rgb(223, 70, 204);
     --color-text-base-muted: rgba(234, 237, 243, 0.7);
+
+    .bg-fill {
+        background-color: var(--color-fill);
+      }
+      
+      .bg-card {
+        background-color: var(--color-card);
+      }
+      
+      .bg-card-muted {
+        background-color: var(--color-card-muted);
+      }
+      
+      .bg-accent {
+        background-color: var(--color-accent);
+      }
+      
+      .hover\:bg-accent-hover:hover {
+        background-color: var(--color-accent-hover);
+      }
+      
+      .text-color-base {
+        color: var(--color-text-base);
+      }
+      
+      .text-color-base-muted {
+        color: var(--color-text-base-muted);
+      }
+      
+      .text-accent {
+        color: var(--color-accent);
+      }
+      
+      .text-accent-muted {
+        color: var(--color-accent-hover);
+      }
+      
+      .border-border {
+        border-color: var(--color-border);
+      }
   }
   
   /* Apply some global styles for better contrast */
