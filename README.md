@@ -97,8 +97,8 @@ yarn build
 To add more items to the database, modify the `useSemanticSearch` initialization in `SemanticSearch.vue`:
 
 ```js
-const { ... } = useSemanticSearch([
-  "Bed", "Car", "Train", "Cat", "Dog", "Apple", 
+const {...} = useSemanticSearch([
+  "Bed", "Car", "Train", "Cat", "Dog", "Apple",
   "Boat", "Mouse", "Chair", "Table", "Laptop", "Bird",
   // Add your items here
 ]);
@@ -110,9 +110,9 @@ To use a different embedding model, modify the `PipelineSingleton` class in `emb
 
 ```js
 class PipelineSingleton {
-  static task = "feature-extraction";
-  static model = "your-preferred-model";
-  static fallbackModel = "your-fallback-model";
+  static task = 'feature-extraction'
+  static model = 'your-preferred-model'
+  static fallbackModel = 'your-fallback-model'
   // ...
 }
 ```
