@@ -1,2 +1,40 @@
 @import "tailwindcss";
 
+:root {
+    --primary: #1e40af;
+    --primary-hover: #1e3a8a;
+    --secondary: #0f766e;
+    --secondary-hover: #0e7490;
+    --accent: #9333ea;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --warning: #ca8a04;
+    --background-light: #f8fafc;
+    --background-dark: #0f172a;
+    --text-light: #0f172a;
+    --text-dark: #f8fafc;
+    --color-fill: rgb(33, 39, 55);
+    --color-text-base: rgb(234, 237, 243);
+    --color-accent: rgb(255, 107, 237);
+    --color-card: rgb(52, 63, 96);
+    --color-card-muted: rgb(138, 51, 123);
+    --color-border: rgb(171, 75, 153);
+    
+    /* Additional derived colors */
+    --color-accent-hover: rgb(223, 70, 204);
+    --color-text-base-muted: rgba(234, 237, 243, 0.7);
+  }
+  
+  /* Apply some global styles for better contrast */
+  body {
+    color: var(--text-light);
+    background-color: var(--background-light);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    body {
+      color: var(--text-dark);
+      background-color: var(--background-dark);
+    }
+  }
+  
