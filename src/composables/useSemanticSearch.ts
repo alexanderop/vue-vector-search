@@ -33,7 +33,7 @@ export function useSemanticSearch(initialItems: string[]) {
         data: { items: plainItems },
       })
     }
-    catch{
+    catch {
       modelStatus.value = 'Error: Failed to communicate with worker'
       loading.value = false
     }

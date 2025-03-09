@@ -26,7 +26,7 @@ class PipelineSingleton {
       }
       catch (error) {
         // If primary model fails, try fallback model
-        self.postMessage({
+        globalThis.postMessage({
           status: 'progress',
           message: `Primary model failed, trying fallback model: ${error.message}`,
         })
@@ -49,26 +49,27 @@ class PipelineSingleton {
 }
 
 // Listen for messages from the main thread
-self.addEventListener('message', async (event) => {
+globalThis.addEventListener('message', async (event) => {
   try {
     const { type, data } = event.data
 
     switch (type) {
-      case 'init':
+      case 'init': {
         // Initialize the pipeline and notify when ready
         await PipelineSingleton.getInstance((progress) => {
-          self.postMessage({
+          globalThis.postMessage({
             status: 'progress',
             ...progress,
           })
         })
-        self.postMessage({ status: 'initialized' })
+        globalThis.postMessage({ status: 'initialized' })
         break
+      }
 
-      case 'generateEmbeddings':
+      case 'generateEmbeddings': {
         // Get pipeline instance
         const pipeline = await PipelineSingleton.getInstance((progress) => {
-          self.postMessage({
+          globalThis.postMessage({
             status: 'progress',
             ...progress,
           })
@@ -103,14 +104,15 @@ self.addEventListener('message', async (event) => {
         }
 
         // Make sure we're sending a simple array of arrays
-        self.postMessage({
+        globalThis.postMessage({
           status: 'embeddingsGenerated',
           embeddings: embeddings.map(emb => Array.from(emb).map(Number)),
         })
         break
+      }
 
-      case 'search':
-        self.postMessage({
+      case 'search': {
+        globalThis.postMessage({
           status: 'debug',
           message: 'Search request received',
           query: data.query,
@@ -157,16 +159,17 @@ self.addEventListener('message', async (event) => {
         similarities.sort((a, b) => b.similarity - a.similarity)
         const topResults = similarities.slice(0, 3)
 
-        self.postMessage({
+        globalThis.postMessage({
           status: 'searchResults',
           results: topResults,
         })
         break
+      }
 
-      case 'embedding':
+      case 'embedding': {
         // Simple single embedding generation (matching the example pattern)
         const singlePipeline = await PipelineSingleton.getInstance((progress) => {
-          self.postMessage({
+          globalThis.postMessage({
             status: 'progress',
             ...progress,
           })
@@ -180,11 +183,12 @@ self.addEventListener('message', async (event) => {
         // Extract the embedding output
         const embedding = Array.from(output.data)
 
-        self.postMessage({
+        globalThis.postMessage({
           status: 'complete',
           embedding,
         })
         break
+      }
 
       default:
         throw new Error(`Unknown message type: ${type}`)
@@ -192,7 +196,7 @@ self.addEventListener('message', async (event) => {
   }
   catch (error) {
     console.error('Worker error:', error)
-    self.postMessage({
+    globalThis.postMessage({
       status: 'error',
       message: error.message,
       stack: error.stack,
